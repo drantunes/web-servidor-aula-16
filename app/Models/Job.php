@@ -2,46 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Job {
-    private $id;
-    private $tipo;
-    private $vaga;
-    private $salario;
-    private $descricao;
-    private $empresa;
-    private $site;
-    private $tags;
-    private $publicado;
+class Job extends Model
+{
+    use HasFactory;
 
-    public function __get($property)
+    public function company()
     {
-        return $this->$property;
+        return $this->belongsTo(Company::class);
     }
 
-    public function __set($property, $value)
+    public function tags()
     {
-        return $this->$property = $value;
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
-
-    public static function lista()
-    {
-        return Cache::get('jobs') ?? [];
-    }
-
-    public static function get($id)
-    {
-        return Cache::get($id);
-    }
-
-    public function save()
-    {
-        $data = Cache::get('jobs') ?? [];
-        array_push($data, $this);
-
-        Cache::put('jobs', $data);
-        Cache::put($this->id, $this);
-    }
-
 }

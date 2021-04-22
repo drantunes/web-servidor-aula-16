@@ -10,6 +10,13 @@
 @endsection
 
 @section('conteudo')
+        @if (request()->tag != null)
+        <div class="tag_header">
+            <h2>Vagas com a tag: <span>{{ request()->tag }}</span></h2>
+            <a href="/">Ver todas as vagas</a>
+        </div>
+        @endif
+
         @forelse ($jobs as $job)
             
         <div class="job container">
@@ -19,14 +26,15 @@
                             src="https://loremflickr.com/120/120?random={{ $loop->iteration }}"></div>
                     <div class="col job__col--caption">
                         <a href="/job/{{ $job->id }}" class="job__position">{{ $job->vaga }}</a>
-                        <div class="job__company">Empresa {{ $job->empresa }}</div>
+                        <div class="job__company">Empresa {{ $job->company->nome }}</div>
                     </div>
                     <div class="col-6 job__col--tags ">
                         <div class="job__tags">
                             <div class="tags text-right">
-                                @for ($i=0; $i < sizeof($job->tags); $i++)
-                                    <a href="/{{ $job->tags[$i]->value }}" class="tags__tag">{{ $job->tags[$i]->value }}</a>
-                                @endfor
+                                @foreach ($job->tags as $tag)
+                                    <a href="/{{ $tag->nome }}" class="tags__tag">{{ $tag->nome }}</a>
+                                @endforeach
+                                
                             </div>
                         </div>
                     </div>
@@ -39,5 +47,6 @@
             <h2 style="text-align: center">🙁 Nenhuma vaga postada!</h2>   
         @endforelse
         
+        {{ $jobs->links() }}
 
 @endsection

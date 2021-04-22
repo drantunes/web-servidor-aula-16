@@ -9,7 +9,7 @@
                 <div class="job-detail__company-image"
                     style="background-image: url('https://loremflickr.com/150/150?random=1');"></div>
                 <h1 class="header__title-h1-single">Vaga {{ $job->vaga }}</h1>
-                <p class="header__title-company">Empresa {{ $job->empresa }}</p>
+                <p class="header__title-company">Empresa {{ $job->company->nome }}</p>
             </div>
         </div>
         
@@ -30,8 +30,8 @@
                             <ul class="job-detail__details">
                                 <li>
                                     <strong>Empresa</strong><br>
-                                    <span>{{ $job->empresa }}</span><br>
-                                    <a href="#">{{ $job->site }}</a>
+                                    <span>{{ $job->company->nome }}</span><br>
+                                    <a href="#">{{ $job->company->site }}</a>
                                 </li>
                                 <li>
                                     <strong>Tipo</strong><br>
@@ -48,14 +48,14 @@
                                 <li>
                                     <strong>Publicado</strong><br>
                                     <span>
-                                        {{ \Carbon\Carbon::parse($job->publicado)->diffForHumans() }}
+                                        {{ $job->created_at->diffForHumans() }}
                                     </span>
                                 </li>
                                 <li>
                                     <div class="job__tags">
-                                        @for ($i = 0; $i < sizeof($job->tags); $i++)
-                                            <a href="#" class="tags__tag">{{ $job->tags[$i]->value }}</a>
-                                        @endfor
+                                        @foreach ($job->tags as $tag)
+                                            <a href="/{{ $tag->nome }}" class="tags__tag">{{ $tag->nome }}</a>
+                                        @endforeach
                                     </div>
                                 </li>
                             </ul>
