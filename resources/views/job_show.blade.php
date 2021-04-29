@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo', 'Vaga {{ $job->vaga }}')
+@section('titulo', "Vaga $job->vaga")
 
 @section('conteudo')
 
@@ -43,7 +43,7 @@
                                 </li>
                                 <li>
                                     <strong>Responsável</strong><br>
-                                    <span>Quem cadastrou</span>
+                                    <span>{{ $job->company->user->name }}</span>
                                 </li>
                                 <li>
                                     <strong>Publicado</strong><br>

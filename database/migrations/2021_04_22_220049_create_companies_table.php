@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('site');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

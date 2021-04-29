@@ -15,7 +15,7 @@
 
         <div class="container header--light">
             <div class="header__title">
-                <h1 class="header__title-h1-single">🔥 Usuario, adicione um Job!</h1>
+                <h1 class="header__title-h1-single">🔥 {{ auth()->user()->name }}, adicione um Job!</h1>
                 <p class="header__title-h1-sub text-center">
                     Adicione uma oportunidade na sua empresa. O trabalho será listado em vários sites parceiros automaticamente
                     e o número de candidatos será maior!
